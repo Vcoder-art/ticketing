@@ -1,0 +1,52 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ticket
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ticketing.dev
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: tickets-clusterip-srv
+                port:
+                  number: 3000
+            path: /api/tickets/*
+
+          - pathType: Prefix
+            backend:
+              service:
+                name: orders-clusterip-srv
+                port:
+                  number: 3000
+            path: /api/orders/*
+
+          - pathType: Prefix
+            backend:
+              service:
+                name: payments-clusterip-srv
+                port:
+                  number: 3000
+            path: /api/payments/*
+
+          - pathType: Prefix
+            backend:
+              service:
+                name: auth-clusterip-srv
+                port:
+                  number: 3000
+            path: /api/*
+
+          - pathType: Prefix
+            backend:
+              service:
+                name: nextjs-clusterip-srv
+                port:
+                  number: 3000
+            path: /.*

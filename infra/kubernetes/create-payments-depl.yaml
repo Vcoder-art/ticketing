@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments
+  template:
+    metadata:
+      labels:
+        app: payments
+    spec:
+      containers:
+        - name: payments
+          image: vishaldocker012/payments
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          env:
+            - name: MONGO_URI
+              value: mongodb://payments-mongodb-clusterip-srv:27017/payments
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: NATS_CONNECTING_URL
+              value: https://nats-clusterip-srv:4222
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+
+            - name: STRIPE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: STRIPE_SECRET
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-clusterip-srv
+
+spec:
+  selector:
+    app: payments
+  ports:
+    - name: payments
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
