@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { app } from "./app";
 
 const start = async () => {
-  console.log("ok this is a game")
+  console.log("this is a auth")
   if (!process.env.JWT_SECRET) {
     throw new Error("enviroment variable is not load");
   }
