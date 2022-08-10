@@ -7,6 +7,7 @@ import { OrderExpiresListener } from "./events/listener/orderExpiresListener";
 import { Paymentlistener } from "./events/listener/paymentComplete";
 
 const start = async () => {
+  console.log("we are develepers");
   if (!process.env.JWT_SECRET) {
     throw new Error("enviroment variable is not load");
   }
