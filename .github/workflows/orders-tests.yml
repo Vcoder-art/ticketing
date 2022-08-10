@@ -2,7 +2,9 @@
 name : tests 
  
 on : 
- pull_request
+ pull_request:
+  path:
+   - "orders/**"
 
 jobs :
   build :
