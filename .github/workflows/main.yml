@@ -1,8 +1,10 @@
 name : tests 
  
 on : 
- pull_request
-
+ pull_request:
+   path : 
+     - "auth/**"
+    
 jobs :
   build :
     runs-on : ubuntu-latest
