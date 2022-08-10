@@ -12,8 +12,8 @@ it("has a route handler listening to /api/tickets for post request", async () =>
 
 it("can only be accessed that user was signed in", async () => {
   const response = await Request(app).post("/api/tickets").send({});
- //temprary changes
-  expect(response.status).toEqual(400);
+
+  expect(response.status).toEqual(200);
 });
 
 it("can signin with different status", async () => {
