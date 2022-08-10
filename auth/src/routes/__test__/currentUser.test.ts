@@ -11,7 +11,7 @@ it("this is current user",async ()=>{
   .get("/api/currentUser")
   .set("Cookie",cookie)
   .send()
-  .expect(400)
+  .expect(200)
 
   console.log(response.body);
 })
