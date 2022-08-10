@@ -5,7 +5,7 @@ import { OrderCreateListener } from "./events/listener/order-create-listener";
 import { OrderCancelListener } from "./events/listener/order-cancel-listener";
 
 const start = async () => {
-  console.log("tickets i started second");
+  console.log("ok bby");
   if (!process.env.JWT_SECRET) {
     throw new Error("enviroment variable is not load");
   }
